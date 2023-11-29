@@ -8,8 +8,6 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.proxidev.springbootblogrestapi.entities.Category;
 import com.proxidev.springbootblogrestapi.exceptions.ResourceNotFoundException;
@@ -46,6 +44,12 @@ public class CategoryService {
         data.setName(category.getName());
         var res = categoryRepository.save(data);
         return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> deleteCategory(Long id) {
+        categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(CATEGORY, ID, id));
+        return new ResponseEntity<>("success", HttpStatus.NO_CONTENT);
     }
 
 }

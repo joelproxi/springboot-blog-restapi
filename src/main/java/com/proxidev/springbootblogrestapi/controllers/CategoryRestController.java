@@ -3,6 +3,7 @@ package com.proxidev.springbootblogrestapi.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,12 @@ public class CategoryRestController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, Category category) {
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
         return categoryService.updateCategory(id, category);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteCategory(@PathVariable Long id){
+        return categoryService.deleteCategory(id);
     }
 }
