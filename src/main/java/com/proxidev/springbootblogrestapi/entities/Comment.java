@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+import com.proxidev.springbootblogrestapi.audits.DateTimeAudit;
+
 @ToString
 @Setter
 @Getter
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @Table(name = "comment")
 @Entity
-public class Comment {
+public class Comment extends DateTimeAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
@@ -26,11 +28,11 @@ public class Comment {
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private Post post;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
+    // @Temporal(TemporalType.TIMESTAMP)
+    // @Column(nullable = false)
+    // private LocalDateTime createdAt;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    // @Temporal(value = TemporalType.TIMESTAMP)
+    // @Column(nullable = false)
+    // private LocalDateTime updatedAt;
 }

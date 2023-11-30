@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CommentRequest {
     private String body;
-    private Post post;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
