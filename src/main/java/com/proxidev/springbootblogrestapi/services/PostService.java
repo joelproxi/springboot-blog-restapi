@@ -11,11 +11,16 @@ import com.proxidev.springbootblogrestapi.repositories.PostRepository;
 import com.proxidev.springbootblogrestapi.repositories.TagRepository;
 
 import static com.proxidev.springbootblogrestapi.utils.AppConstant.*;
+import static com.proxidev.springbootblogrestapi.utils.CheckerUtils.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,9 +40,12 @@ public class PostService {
         this.tagRepository = tagRepository;
     }
 
-    public ResponseEntity<List<PostResponseDto>> getAllPost() {
-        List<Post> posts = postRepository.findAll();
-        List<PostResponseDto> resp = posts.stream().map(this::mapToPostResponseDto).toList();
+    public ResponseEntity<List<PostResponseDto>> getAllPost(Integer page, Integer size) {
+        validatedPaginationData(page, size);
+        var pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+        Page<Post> posts = postRepository.findAll(pageable);
+        List<Post> content = posts.getNumberOfElements() == 0 ? Collections.emptyList() : posts.getContent();
+        List<PostResponseDto> resp = content.stream().map(this::mapToPostResponseDto).toList();
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 

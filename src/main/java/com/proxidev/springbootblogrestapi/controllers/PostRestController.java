@@ -1,5 +1,8 @@
 package com.proxidev.springbootblogrestapi.controllers;
 
+import static com.proxidev.springbootblogrestapi.utils.AppConstant.DEFAULT_PAGE_NUMBER;
+import static com.proxidev.springbootblogrestapi.utils.AppConstant.DEFAULT_PAGE_SIZE;
+
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -20,8 +23,10 @@ public class PostRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PostResponseDto>> getAllPost() {
-        return postService.getAllPost();
+    public ResponseEntity<List<PostResponseDto>> getAllPost(
+            @RequestParam(value = "page", required = false, defaultValue = DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(value = "size", required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer size) {
+        return postService.getAllPost(page, size);
     }
 
     @GetMapping(value = "/{id}")

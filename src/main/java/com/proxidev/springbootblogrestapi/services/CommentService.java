@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,8 +29,6 @@ public class CommentService {
         var comment = commentRepository.save(
                 Comment.builder()
                         .body(req.getBody())
-                        .createdAt(LocalDateTime.now())
-                        .updatedAt(LocalDateTime.now())
                         .post(post)
                         .build());
 
@@ -43,8 +40,6 @@ public class CommentService {
                 .id(comment.getId())
                 .body(comment.getBody())
                 .post(comment.getPost().getId())
-                .createdAt(comment.getCreatedAt())
-                .updatedAt(comment.getUpdatedAt())
                 .build();
     }
 

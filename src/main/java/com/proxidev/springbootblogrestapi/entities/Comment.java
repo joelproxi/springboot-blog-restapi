@@ -3,8 +3,6 @@ package com.proxidev.springbootblogrestapi.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 import com.proxidev.springbootblogrestapi.audits.DateTimeAudit;
 
 @ToString
@@ -28,11 +26,4 @@ public class Comment extends DateTimeAudit {
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private Post post;
 
-    // @Temporal(TemporalType.TIMESTAMP)
-    // @Column(nullable = false)
-    // private LocalDateTime createdAt;
-
-    // @Temporal(value = TemporalType.TIMESTAMP)
-    // @Column(nullable = false)
-    // private LocalDateTime updatedAt;
 }
